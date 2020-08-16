@@ -5,3 +5,7 @@ sklearn
 tensorflow
 mlflow 
 matplotlib
+flask 
+keras
+scikit-image
+opencv-python
