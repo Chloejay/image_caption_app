@@ -24,7 +24,6 @@ mkdir -p .github/workflows
 cd .github/workflows
 touch cml.yaml
 ```
-
 #### Use git branch to experiment 
 ```
 git checkout -b experiment_v1

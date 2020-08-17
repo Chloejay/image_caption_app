@@ -16,6 +16,7 @@ INSTALL_REQUIRES = [
     scikit-image
     opencv-python
 ]
+
 with open (os.path.join(pathlib.Path(__file__).parent, "README.md")) as f:
     long_description = f.readline()
 
