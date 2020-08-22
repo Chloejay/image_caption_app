@@ -1,10 +1,10 @@
 # image_caption_app
 
-This repo is used to build an end to end computer vision app. I did object detection model and saved trained model checkpoints and use AWS SageMaker as endpoint(URI) <a href="https://github.com/Chloejay/image_caption_app/blob/master/model_api_demo.ipynb">demo example</a> to test image sets data stored in AWS S3 bucket, can see example from ipython file. This time, I will use Flask or Streamlit as a frontend tool and MLflow to log training versions.
+This repo is used to build an end to end computer vision app. I did object detection model and trained model are saved as checkpoints, then I use AWS SageMaker as endpoint(URI) to test image sets data stored in AWS S3 bucket, can see <a href="https://github.com/Chloejay/image_caption_app/blob/master/model_api_demo.ipynb">example from ipython file</a>. This time, I will use `Flask` or `Streamlit` as a frontend tool and MLflow to log training versions.
 
-For this demo I originally planned to use already trained model which I trained one year ago, since the purpose for this demo app is not to get the highest accuracy of model. However, the latest trained tensorflow model is not saved on my local machine, so I decide to rebuild an interesting model by using transfer learning. Such as use pre-trained mmdetection or Mask - RCNN. However, I decided to finish image captioning task(image to text translation), since I started to learn computer vision, I was attracted by Karpathy cs231n course and his <a href="https://github.com/karpathy/neuraltalk">neuraltalk repo.</a> Deep Visual-Semantic Alignments for Generating Image Descriptions <a href="https://cs.stanford.edu/people/karpathy/deepimagesent/">website</a>.
+On this repo, I originally planned to use already trained model which I trained one year ago for image detection task, since the purpose for this app is not to get the highest accuracy of model. However, the latest trained `tensorflow` model is not saved on my local machine, so I decide to rebuild a model by using transfer learning. Such as use pre-trained `mmdetection` or `Mask-RCNN`. However, I decided to finish image captioning task(image to text translation), since I started to learn computer vision, I was impressed by Karpathy cs231n course and his <a href="https://github.com/karpathy/neuraltalk">neuraltalk project.</a> Deep Visual-Semantic Alignments for Generating Image Descriptions <a href="https://cs.stanford.edu/people/karpathy/deepimagesent/">website</a>.
 
-The paper is based on Show and Tell: A Neural Image Caption Generator <a href="https://arxiv.org/abs/1411.4555">arXiv.</a>
+The repo is based on paper <i>Show and Tell: A Neural Image Caption Generator</i> <a href="https://arxiv.org/abs/1411.4555">arXiv.</a>
 CNN + LSTM 
 
 ## The App screenshot 

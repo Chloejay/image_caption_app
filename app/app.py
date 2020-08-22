@@ -56,43 +56,47 @@ def load_tensorboard():
     
 
 # app 
-app_mode = st.sidebar.selectbox("Choose the app mode",["APP model infos", 
-                                                       "Run the app", 
-                                                       "Show the source code"])
+def main():
+    app_mode = st.sidebar.selectbox("Choose the app mode",["APP model infos", 
+                                                           "Run the app", 
+                                                           "Show the source code"])
 
-if app_mode == "APP model infos":
-    st.sidebar.success("This is a app about ..., at this moment this model will only take one model from paper,\
-                       which just shows the model result by using transfer learning, it layers up CNN and \
-                           RNN models to translate image features to text.")
-    render_default()
-    load_readme()
-    
-elif app_mode == "Show the source code":
-    st.sidebar.code(get_file_content_as_string("app.py"))
-    render_default()
-    load_tensorboard()
-    # load tensorboard dir log for model results
-    
-elif app_mode == "Run the app":
-    get_time()
-    render_default()
-    run_the_app()
-    upload_img()
-    
+    if app_mode == "APP model infos":
+        st.sidebar.success("This is a app about ..., at this moment this model will only take one model from paper,\
+                           which just shows the model result by using transfer learning, it layers up CNN and \
+                               RNN models to translate image features to text.")
+        render_default()
+        load_readme()
 
-# have multiply models to be selected
-# TODO get one more model
-models = ["cnn_lstm"]
-model_choice = st.selectbox("Select Model", models)
+    elif app_mode == "Show the source code":
+        st.sidebar.code(get_file_content_as_string("app.py"))
+        render_default()
+        load_tensorboard()
+        # load tensorboard dir log for model results
 
-@st.cache
-def load_model(model_file):
-    loaded_model = joblib.load(open(os.path.join(model_file), "rb"))
-    return loaded_model
+    elif app_mode == "Run the app":
+        get_time()
+        render_default()
+        run_the_app()
+        upload_img()
 
-# TODO
-if model_choice =="cnn_lstm":
-    predictor = load_model("models/...")
-    prediction = predictor.predict(vect_text)
-    st.write(prediction)
 
+    # have multiply models to be selected
+    # TODO get one more model
+    models = ["cnn_lstm"]
+    model_choice = st.selectbox("Select Model", models)
+
+    @st.cache
+    def load_model(model_file):
+        loaded_model = joblib.load(open(os.path.join(model_file), "rb"))
+        return loaded_model
+
+    # TODO
+    if model_choice =="cnn_lstm":
+        predictor = load_model("models/...")
+        prediction = predictor.predict(vect_text)
+        st.write(prediction)
+
+
+if __name__ == "__main__":
+    main()
