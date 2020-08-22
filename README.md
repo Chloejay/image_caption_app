@@ -11,13 +11,13 @@ CNN + LSTM
 <img src="imgs/app.png">
 
 #### Basic NLP tips:
-tokenization, remove punctuation, brackets, stop/rare words etc,word2vector, steamming, lemmazation. 
+tokenization, remove punctuation, brackets, stop/rare words etc,word2vector, stemming, lemmatization.
 
 Model Train on AWS EC2
 ```
 ssh -i aws -L localhost:8888:localhost:8888 ubuntu@13.59.137.250
 ```
-Train model based on COCO datasets (datasize:13G) and show-attend-and-tell-tensorflow
+Train model based on COCO datasets (datasize: 13G) and show-attend-and-tell-tensorflow repo
 ```
 python main.py --phase=train \
     --load_cnn \
@@ -26,7 +26,7 @@ python main.py --phase=train \
 Model Inference 
 ```
 python main.py --phase=test \
-    --model_file='./models/xxxxxx.npy'
+    --model_file='./models/xxxx.npy'
 ```
 Tensorboard
 ```
