@@ -14,7 +14,7 @@ st.set_option("deprecation.showfileUploaderEncoding", False)
     
 @st.cache(show_spinner = False)
 def get_file_content_as_string(app_file_path):
-    url = 'https://github.com/Chloejay/detection_api/tree/master/app/' + app_file_path
+    url = 'https://raw.githubusercontent.com/Chloejay/image_caption_app/master/app/' + app_file_path
     response = urllib.request.urlopen(url)
     return response.read().decode("utf-8")
 
