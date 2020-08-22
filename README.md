@@ -1,4 +1,4 @@
-# detection_api
+# image_caption_app
 
 This repo is used to build an end to end computer vision app. I did object detection model and saved trained model checkpoints and use AWS SageMaker as endpoint(URI) to test image sets data stored in AWS S3 bucket, can see example from ipython file. This time, I will use Flask or Streamlit as a frontend tool and MLflow to log training versions.
 
@@ -7,32 +7,36 @@ For this demo I originally planned to use already trained model which I trained 
 The paper is based on Show and Tell: A Neural Image Caption Generator <a href="https://arxiv.org/abs/1411.4555">arXiv.</a>
 CNN + LSTM 
 
-## Basic NLP tips:
-tokenization, remove punctuation, brackets, stop/rare words etc,word2vector, steamming, lemmazation. 
-the images are converted to visual features and text is generated from the features
+## The App screenshot 
+<img src="imgs/app.png">
 
-Model Train
+#### Basic NLP tips:
+tokenization, remove punctuation, brackets, stop/rare words etc,word2vector, steamming, lemmazation. 
+
+Model Train on AWS EC2
+```
+ssh -i aws -L localhost:8888:localhost:8888 ubuntu@13.59.137.250
+```
+Train model based on COCO datasets (datasize:13G) and show-attend-and-tell-tensorflow
 ```
 python main.py --phase=train \
     --load_cnn \
-    --cnn_model_file='./vgg16_no_fc.npy'\
-    [--train_cnn]    
+    --cnn_model_file='./vgg16_no_fc.npy'
 ```
-
 Model Inference 
 ```
 python main.py --phase=test \
-    --model_file='./models/xxxxxx.npy' \
-    --beam_size=3
+    --model_file='./models/xxxxxx.npy'
 ```
 Tensorboard
 ```
-tensorboard --logdir='./summary/'
+tensorboard --logdir='./log' --port= 6005
 ```
-UI  
+UI 
 ```
 streamlit run app.py
 ```
+
 ## automate workflow
 - Makefile 
 
@@ -59,9 +63,9 @@ git commit -m""
 git push origin experiment_v1
 ```
 ## LICENSE 
-[MIT](https://opensource.org/licenses/MIT)
-<s>#auto generate LICENSE doc</s>
-<s>wget -c https://www.gnu.org/licenses/gpl-3.0.txt -O LICENSE</s>
+- [MIT](https://opensource.org/licenses/MIT)
+- <s>#auto generate LICENSE doc</s>
+- <s>wget -c https://www.gnu.org/licenses/gpl-3.0.txt -O LICENSE</s>
 
 #### Deploy on Heroku 
 ```
@@ -70,8 +74,6 @@ Procfile #specify the type of application nd command to run it
 ```
 ## Resource
 ###### TODO
-- <a href="https://github.com/jbrownlee/Datasets/releases">Flickr8K</a>
-- <a href="">Microsoft COCO dataset </a>
 - Im2Text: Describing Images Using 1 Million Captioned Photographs <a href="http://papers.nips.cc/paper/4470-im2text-describing-images-using-1-million-captioned-photographs.pdf">arXiv</a>
 - DenseCap: Fully Convolutional Localization Networks for Dense Captioning <a href="https://www.cv-foundation.org/openaccess/content_cvpr_2016/papers/Johnson_DenseCap_Fully_Convolutional_CVPR_2016_paper.pdf">CVPR</a>
 - Unifying Visual-Semantic Embeddings with Multimodal Neural Language Models <a href="https://arxiv.org/pdf/1411.2539.pdf">arXiv</a>

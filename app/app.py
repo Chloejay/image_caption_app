@@ -7,15 +7,14 @@ from PIL import Image
 import requests
 import urllib
 import datetime,time
-# from retinaface.pre_trained_models import get_model
-# from retinaface.utils import vis_annotations
 
+WIDTH = 300
+HEIGHT = 300
 st.set_option("deprecation.showfileUploaderEncoding", False)
     
-
-@st.cache(show_spinner=False)
+@st.cache(show_spinner = False)
 def get_file_content_as_string(app_file_path):
-    url = 'https://github.com/Chloejay/detection_api/tree/master/app' + app_file_path
+    url = 'https://github.com/Chloejay/detection_api/tree/master/app/' + app_file_path
     response = urllib.request.urlopen(url)
     return response.read().decode("utf-8")
 
@@ -34,8 +33,7 @@ def upload_img():
     uploaded_file = st.file_uploader("Please choose an image to upload...", type=["jpeg", "jpg"], multiple_files=True)
     if uploaded_file:
         img = np.array(Image.open(uploaded_file))
-        st.image(img, width = 300, height = 300, caption="Image") #use_column_width=True
-        # st.image(img, width = 400, height= 400, caption= "Image2")
+        st.image(img, width = WIDTH, height = HEIGHT, caption="Image") #use_column_width=True
         st.success("###### success load image")
         st.write("")
         st.write("Generate text from image features...")
@@ -45,7 +43,10 @@ def load_readme():
     """
     add some model paper results here for explanation.
     """
-    st.title("let's write some model theory and one image to display 'translation'!")
+    st.title("TODO can write model theory...")
+    img1= Image.open("imgs/img1.png")
+    img2= Image.open("imgs/img2.png")
+    st.image([img1, img2], width = WIDTH)
     
 def load_tensorboard():
     st.markdown("## below is the model result from the tensorboard")
@@ -55,7 +56,9 @@ def load_tensorboard():
     
 
 # app 
-app_mode = st.sidebar.selectbox("Choose the app mode",["APP model infos", "Run the app", "Show the source code"])
+app_mode = st.sidebar.selectbox("Choose the app mode",["APP model infos", 
+                                                       "Run the app", 
+                                                       "Show the source code"])
 
 if app_mode == "APP model infos":
     st.sidebar.success("This is a app about ..., at this moment this model will only take one model from paper,\
@@ -87,6 +90,7 @@ def load_model(model_file):
     loaded_model = joblib.load(open(os.path.join(model_file), "rb"))
     return loaded_model
 
+# TODO
 if model_choice =="cnn_lstm":
     predictor = load_model("models/...")
     prediction = predictor.predict(vect_text)
