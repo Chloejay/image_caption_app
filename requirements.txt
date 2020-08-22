@@ -2,10 +2,14 @@ dvc
 pandas
 numpy
 sklearn
-tensorflow
+tensorflow==1.15.3
 mlflow 
 matplotlib
 flask 
 keras
 scikit-image
 opencv-python
+tqdm
+nltk
+streamlit
+joblib

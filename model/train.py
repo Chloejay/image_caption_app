@@ -5,7 +5,6 @@ PATH_TO_LABELS = os.path.join('/home/ubuntu/cocacola_201904/coke_dataset/trainin
 # label box is binary bbox to put into training
 NUM_CLASSES = 2
 
-#load the tensorflow model into the memory
 graph = tf.Graph()
 
 with graph.as_default():
@@ -23,5 +22,3 @@ def load_image_into_numpy_array(image):
     return np.array(image.getdata())\
     .reshape((im_height, im_width, 3))\
     .astype(np.uint8)
-    
-    
