@@ -10,11 +10,19 @@ import datetime,time
 
 WIDTH = 300
 HEIGHT = 300
+IMG_PATH = "imgs"
+URI= 'https://raw.githubusercontent.com/Chloejay/image_caption_app/master/app/'
+
 st.set_option("deprecation.showfileUploaderEncoding", False)
+st.beta_set_page_config( page_title="Image translation app",
+                        page_icon="",
+                        layout="wide",
+                        initial_sidebar_state="expanded",
+                        )
     
 @st.cache(show_spinner = False)
 def get_file_content_as_string(app_file_path):
-    url = 'https://raw.githubusercontent.com/Chloejay/image_caption_app/master/app/' + app_file_path
+    url = URI + app_file_path
     response = urllib.request.urlopen(url)
     return response.read().decode("utf-8")
 
@@ -27,33 +35,37 @@ def render_default():
     st.text("Display image metrics etc")
 
 def get_time():
-    st.sidebar.date_input("Today is",datetime.datetime.now())
+    st.sidebar.date_input("Today is", datetime.datetime.now())
 
 def upload_img():
-    uploaded_file = st.file_uploader("Please choose an image to upload...", type=["jpeg", "jpg"], multiple_files=True)
+    uploaded_file = st.file_uploader("Please choose an image to upload...", type= ["jpeg", "jpg"], multiple_files= True)
     if uploaded_file:
         img = np.array(Image.open(uploaded_file))
-        st.image(img, width = WIDTH, height = HEIGHT, caption="Image") #use_column_width=True
+        st.image(img, width = WIDTH, height = HEIGHT, caption = "Image", use_column_width = True) 
         st.success("###### success load image")
         st.write("")
         st.write("Generate text from image features...")
         # TODO
 
-def load_readme():
+def load_readme(img_path):
     """
-    add some model paper results here for explanation.
+    add some model paper results here for explantion.
     """
     st.title("TODO can write model theory...")
-    img1= Image.open("imgs/img1.png")
-    img2= Image.open("imgs/img2.png")
-    st.image([img1, img2], width = WIDTH)
+    # pbar= st.progress(0)
+    all_imgs = list()
+    for i in [x for x in os.listdir(img_path) if x.startswith("img")]:
+        img = Image.open(os.path.join(img_path, i))
+        all_imgs.append(img)
+    st.image(all_imgs, width = WIDTH)
+    st.success("###### success render example image")
+    # pbar.progress(p+1)
     
 def load_tensorboard():
     st.markdown("## below is the model result from the tensorboard")
     with st.echo():
 	    import pandas as pd 
 	    df = pd.DataFrame()
-    
 
 # app 
 def main():
@@ -62,11 +74,11 @@ def main():
                                                            "Show the source code"])
 
     if app_mode == "APP model infos":
-        st.sidebar.success("This is a app about ..., at this moment this model will only take one model from paper,\
-                           which just shows the model result by using transfer learning, it layers up CNN and \
-                               RNN models to translate image features to text.")
+        st.sidebar.info("This is a app about ..., at this moment this model will only to be tried one model from paper\
+            Show and Tell: A Neural Image Caption Generator, which applies transfer learning, \
+            it layers up CNN and RNN models to translate image features to text. Model training is based on COCO datasets(13G) on AWS EC2.")
         render_default()
-        load_readme()
+        load_readme(IMG_PATH)
 
     elif app_mode == "Show the source code":
         st.sidebar.code(get_file_content_as_string("app.py"))
@@ -79,13 +91,15 @@ def main():
         render_default()
         run_the_app()
         upload_img()
-
-
-    # have multiply models to be selected
+    
+    # placeholder st.empty() to switch with text or image.
+    
+    # to have multiply models to be selected
     # TODO get one more model
     models = ["cnn_lstm"]
     model_choice = st.selectbox("Select Model", models)
-
+    st.balloons()
+    
     @st.cache
     def load_model(model_file):
         loaded_model = joblib.load(open(os.path.join(model_file), "rb"))
@@ -97,6 +111,11 @@ def main():
         prediction = predictor.predict(vect_text)
         st.write(prediction)
 
-
+    if st.button("Translate"):
+        run_model()
+    else:
+        run_inference_result()
+    
+    
 if __name__ == "__main__":
     main()
