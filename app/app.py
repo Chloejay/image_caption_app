@@ -96,7 +96,7 @@ def main():
     
     # to have multiply models to be selected
     # TODO get one more model
-    models = ["cnn_lstm"]
+    models = ["cnn_lstm", "nlp"]
     model_choice = st.selectbox("Select Model", models)
     st.balloons()
     
@@ -107,9 +107,18 @@ def main():
 
     # TODO
     if model_choice =="cnn_lstm":
+        # load model
         predictor = load_model("models/...")
         prediction = predictor.predict(vect_text)
         st.write(prediction)
+        
+    if model_choice=="nlp":
+        predictor = load_model("models/...")
+        prediction = predictor.predict(vect_text)
+        st.write(prediction)
+    else:
+        st.info("please choose one model then continue...")
+        
 
     if st.button("Translate"):
         run_model()

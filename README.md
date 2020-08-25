@@ -17,7 +17,7 @@ Model Train on AWS EC2
 ```
 ssh -i aws -L localhost:8888:localhost:8888 ubuntu@13.59.137.250
 ```
-Train model based on COCO datasets (datasize: 13G) and show-attend-and-tell-tensorflow repo
+Train model based on COCO datasets (datasize: 13G, which takes hours to download) and show-attend-and-tell-tensorflow repo
 ```
 python main.py --phase=train \
     --load_cnn \
@@ -62,6 +62,21 @@ git add .
 git commit -m""
 git push origin experiment_v1
 ```
+
+#### Host on Heroku 
+```
+# install Heroku CLI 
+Procfile
+setup.sh
+
+heroku login 
+heroku create img-caption-app
+heroku git:remote -a img-caption-app
+git push heroku master
+```
+https://img-caption-app.herokuapp.com/
+<img src="imgs/heroku_shoot.png">
+
 ## LICENSE 
 - [MIT](https://opensource.org/licenses/MIT)
 - <s>#auto generate LICENSE doc</s>
