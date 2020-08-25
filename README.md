@@ -66,8 +66,8 @@ git push origin experiment_v1
 #### Host on Heroku 
 ```
 # install Heroku CLI 
-Procfile
-setup.sh
+Procfile 
+setup.sh #helper file
 
 heroku login 
 heroku create img-caption-app
@@ -82,11 +82,6 @@ https://img-caption-app.herokuapp.com/
 - <s>#auto generate LICENSE doc</s>
 - <s>wget -c https://www.gnu.org/licenses/gpl-3.0.txt -O LICENSE</s>
 
-#### Deploy on Heroku 
-```
-setup.sh #helper file
-Procfile #specify the type of application nd command to run it 
-```
 ## Resource
 ###### TODO
 - Im2Text: Describing Images Using 1 Million Captioned Photographs <a href="http://papers.nips.cc/paper/4470-im2text-describing-images-using-1-million-captioned-photographs.pdf">arXiv</a>
